@@ -1,14 +1,17 @@
-/* eslint-disable no-undef */
+// Home.js
 import { useEffect, useRef, useState } from "react";
 import { getTrendingVideos } from "../Services/GlobalApi";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import ProductionHouse from "../components/ProductionHouse";
 import GenreMovieList from "../components/GenreMovieList";
 import { useNavigate } from "react-router-dom";
+import { useMovieContext } from "../components/MovieContext";
+
 const IMAGE_BASE_URL = "http://image.tmdb.org/t/p/original";
 const screenWidth = window.innerWidth;
 
 function Home() {
+  const { updateMovieDetails } = useMovieContext(); // Access updateMovieDetails from MovieContext
   const [movieList, setMovieList] = useState([]);
   const elementRef = useRef();
   const navigate = useNavigate();
@@ -17,22 +20,26 @@ function Home() {
     getTrendingMovies();
   }, []);
 
-  const handleMovieonClicked = (movie) => {
-    navigate(`/movie/${movie.id}`);
+  const handleMovieClicked = (movie) => {
+    updateMovieDetails(movie); // Update movie details in context
+    navigate(`/movie/${movie.id}`); // Navigate to movie details page with correct id
   };
 
   const getTrendingMovies = () => {
-    const getFilmById = getTrendingVideos.then((resp) => {
+    getTrendingVideos().then((resp) => {
       console.log(resp.data.results);
       setMovieList(resp.data.results);
     });
   };
+
   const sliderLeft = (element) => {
     element.scrollLeft -= screenWidth - 110;
   };
+
   const sliderRight = (element) => {
     element.scrollLeft += screenWidth - 110;
   };
+
   return (
     <div>
       <HiChevronLeft
@@ -52,10 +59,9 @@ function Home() {
           <img
             key={index}
             src={IMAGE_BASE_URL + item.backdrop_path}
-            className="w-[] md:h-[310px] object-fill object-left-top mr-5 rounded-md hover:border-[4px] border-gray-400 transition-all duration-100 ease-in"
+            className="w-[] md:h-[310px] object-fill object-left-top mr-5 rounded-md hover:border-[4px] border-gray-400 transition-all duration-100 ease-in cursor-pointer"
             alt={item.title}
-            onClick={() => handleMovieonClicked(item)}
-            // min-w-full
+            onClick={() => handleMovieClicked(item)} // Pass movie object to handler
           />
         ))}
       </div>

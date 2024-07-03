@@ -17,13 +17,20 @@ function NavBar() {
   return (
     <div>
       <div className="w-[120px] md:w-[140px] object-cover">
-        <img src={logo} alt="Logo" className="h-12" />
+        <img
+          src={logo}
+          alt="Logo"
+          className="h-12 w-[120px] md:w-[140px] object-cover"
+        />
       </div>
       <nav>
         <ul>
           <li>
-            <NavLink to="/" className="text-white text-[30px]">
-              home
+            <NavLink to="/" className="text-white text-[30px] flex">
+              <HiHome />
+              <HiMagnifyingGlass />
+              <HiPlus />
+              <HiDotsVertical />
             </NavLink>
           </li>
         </ul>

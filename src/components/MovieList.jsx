@@ -2,20 +2,25 @@
 import { useEffect, useRef, useState } from "react";
 import MovieCard from "./MovieCard";
 import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
-import GlobalApi from "../Services/GlobalApi";
+import { getTrendingVideos } from "../Services/GlobalApi";
+import { getMovieByGenreId } from "../Services/GlobalApi";
 
 function MovieList({ genreId }) {
   const [movieList, setMovieList] = useState([]);
-  const [isLoading, setIsLoading] = useState(false); // Initialize loading state to false
+  const [isLoading, setIsLoading] = useState(false);
   const elementRef = useRef(null);
 
   useEffect(() => {
-    fetchTrendingMovies();
-  }, []); // Fetch trending movies when component mounts
+    if (genreId) {
+      fetchMoviesByGenreId();
+    } else {
+      fetchTrendingMovies();
+    }
+  }, [genreId]);
 
   const fetchTrendingMovies = () => {
-    setIsLoading(true); // Set loading state to true
-    GlobalApi.getTrendingVideos()
+    setIsLoading(true);
+    getTrendingVideos()
       .then((resp) => {
         setMovieList(resp.data.results);
       })
@@ -23,7 +28,21 @@ function MovieList({ genreId }) {
         console.error("Error fetching trending movies:", error);
       })
       .finally(() => {
-        setIsLoading(false); // Set loading state to false after fetching
+        setIsLoading(false);
+      });
+  };
+
+  const fetchMoviesByGenreId = () => {
+    setIsLoading(true);
+    getMovieByGenreId(genreId)
+      .then((resp) => {
+        setMovieList(resp.data.results);
+      })
+      .catch((error) => {
+        console.error("Error fetching movies by genre:", error);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -39,16 +58,14 @@ function MovieList({ genreId }) {
     }
   };
 
-  // Render loading indicator if isLoading is true
   if (isLoading) return <div>Loading...</div>;
 
-  // Conditionally render MovieList based on movieList length
   return (
     <div>
       <div className="relative">
         <IoChevronBackOutline
           onClick={slideLeft}
-          className={`text-[50px] text-white hidden md:block p-2 cursor-pointer z-10 absolute top-1/2 transform -translate-y-1/2`}
+          className={`text-[50px] text-white hidden md:block p-2 cursor-pointer z-10 absolute top-1/2 transform -translate-y-1/2 bg-transparent`}
         />
         <div
           ref={elementRef}
@@ -60,7 +77,7 @@ function MovieList({ genreId }) {
         </div>
         <IoChevronForwardOutline
           onClick={slideRight}
-          className={`text-[50px] text-white hidden md:block p-2 cursor-pointer z-10 absolute top-1/2 transform -translate-y-1/2 right-0`}
+          className={`text-[50px] text-white hidden md:block p-2 cursor-pointer z-10 absolute top-1/2 transform -translate-y-1/2 right-0 bg-transparent`}
         />
       </div>
     </div>
