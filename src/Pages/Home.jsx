@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import GlobalApi from "../Services/GlobalApi";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import ProductionHouse from "../components/ProductionHouse";
+import GenreMovieList from "../components/GenreMovieList";
 const IMAGE_BASE_URL = "http://image.tmdb.org/t/p/original";
 const screenWidth = window.innerWidth;
-function Slider() {
+
+function Home() {
   const [movieList, setMovieList] = useState([]);
   const elementRef = useRef();
   useEffect(() => {
@@ -24,6 +27,7 @@ function Slider() {
   };
   return (
     <div>
+        <h2>asdasdsada</h2>
       <HiChevronLeft
         className="hidden md:block text-black text-[30px] absolute mx-8 mt-[150px] cursor-pointer left-0 bg-white rounded-2xl"
         onClick={() => sliderLeft(elementRef.current)}
@@ -47,8 +51,10 @@ function Slider() {
           />
         ))}
       </div>
+      <ProductionHouse />
+      <GenreMovieList />
     </div>
   );
 }
 
-export default Slider;
+export default Home;
