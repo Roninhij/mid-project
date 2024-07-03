@@ -1,20 +1,28 @@
+/* eslint-disable no-undef */
 import { useEffect, useRef, useState } from "react";
-import GlobalApi from "../Services/GlobalApi";
+import { getTrendingVideos } from "../Services/GlobalApi";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import ProductionHouse from "../components/ProductionHouse";
 import GenreMovieList from "../components/GenreMovieList";
+import { useNavigate } from "react-router-dom";
 const IMAGE_BASE_URL = "http://image.tmdb.org/t/p/original";
 const screenWidth = window.innerWidth;
 
 function Home() {
   const [movieList, setMovieList] = useState([]);
   const elementRef = useRef();
+  const navigate = useNavigate();
+
   useEffect(() => {
     getTrendingMovies();
   }, []);
 
+  const handleMovieonClicked = (movie) => {
+    navigate(`/movie/${movie.id}`);
+  };
+
   const getTrendingMovies = () => {
-    GlobalApi.getTrendingVideos.then((resp) => {
+    const getFilmById = getTrendingVideos.then((resp) => {
       console.log(resp.data.results);
       setMovieList(resp.data.results);
     });
@@ -27,7 +35,6 @@ function Home() {
   };
   return (
     <div>
-        <h2>asdasdsada</h2>
       <HiChevronLeft
         className="hidden md:block text-black text-[30px] absolute mx-8 mt-[150px] cursor-pointer left-0 bg-white rounded-2xl"
         onClick={() => sliderLeft(elementRef.current)}
@@ -47,6 +54,7 @@ function Home() {
             src={IMAGE_BASE_URL + item.backdrop_path}
             className="w-[] md:h-[310px] object-fill object-left-top mr-5 rounded-md hover:border-[4px] border-gray-400 transition-all duration-100 ease-in"
             alt={item.title}
+            onClick={() => handleMovieonClicked(item)}
             // min-w-full
           />
         ))}
