@@ -48,9 +48,9 @@ const AddButton = ({ onClose }) => {
   };
 
   return (
-    <div className="add-movie-form">
-      <h3>Add New Movie</h3>
-      <form onSubmit={handleAddMovie}>
+    <div className="max-w-lg mx-auto p-6 bg-slate-700 shadow-md rounded-lg mt-10">
+      <h3 className="text-2xl font-semibold mb-4 text-center">Add New Movie</h3>
+      <form onSubmit={handleAddMovie} className="space-y-4">
         <input
           required
           type="text"
@@ -58,6 +58,7 @@ const AddButton = ({ onClose }) => {
           name="title"
           value={newMovie.title}
           onChange={handleChange}
+          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <input
           required
@@ -66,14 +67,16 @@ const AddButton = ({ onClose }) => {
           name="director"
           value={newMovie.director}
           onChange={handleChange}
+          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <input
           required
-          type="number"
-          placeholder="Release-Date"
+          type="text"
+          placeholder="Release Date"
           name="releasedate"
           value={newMovie.releasedate}
           onChange={handleChange}
+          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <input
           required
@@ -82,6 +85,7 @@ const AddButton = ({ onClose }) => {
           name="genres"
           value={newMovie.genres}
           onChange={handleChange}
+          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <input
           required
@@ -90,34 +94,49 @@ const AddButton = ({ onClose }) => {
           name="rating"
           value={newMovie.rating}
           onChange={handleChange}
+          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <input
           required
           type="text"
-          name="runtime"
           placeholder="Runtime"
+          name="runtime"
           value={newMovie.runtime}
           onChange={handleChange}
+          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        <input
+        <textarea
           required
-          type="text"
-          name="overview"
           placeholder="Overview"
+          name="overview"
           value={newMovie.overview}
           onChange={handleChange}
-        />
+          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        ></textarea>
         <input
           required
           type="text"
+          placeholder="Backdrop Path"
           name="backdrop_path"
-          placeholder="Poster"
           value={newMovie.backdrop_path}
           onChange={handleChange}
+          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
 
-        <div className="add-btns">
-          <button type="submit">Add Movie</button>
+        <div className="flex justify-between mt-4">
+          <button
+            type="submit"
+            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md transition duration-300"
+          >
+            Add Movie
+          </button>
+          <button
+            type="button"
+            onClick={onClose}
+            className="w-full bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded-md transition duration-300"
+          >
+            Cancel
+          </button>
         </div>
       </form>
     </div>

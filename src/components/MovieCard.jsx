@@ -29,7 +29,7 @@ const MovieCard = ({ movie }) => {
     <img
       src={poster}
       alt={movie.title}
-      className="w-[110px] md:w-[200px] object-cover rounded-lg hover:border-[3px] border-gray-400 hover:scale-110 transition-all duration-150 ease-in cursor-pointer z-10"
+      className="w-[110px] md:w-[350px] object-cover rounded-lg hover:border-[3px] border-gray-400 hover:scale-110 transition-all duration-150 ease-in cursor-pointer z-10"
       onClick={handleMovieClicked}
     />
   );
