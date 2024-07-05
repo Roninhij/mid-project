@@ -8,7 +8,7 @@ const MovieDetails = () => {
   const { movieId } = useParams(); // Extract movieId from URL params
   const { movieDetails, updateMovieDetails } = useMovieContext(); // Access context
   const [isLoading, setIsLoading] = useState(true);
-
+  console.log(movieDetails);
   useEffect(() => {
     fetchMovieDetails(movieId); // Fetch movie details when movieId changes
   }, [movieId]); // Dependency array ensures effect runs when movieId changes

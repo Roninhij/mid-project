@@ -5,10 +5,8 @@ import { productionHouseList as item } from "../utils/data";
 function ProductionHouse() {
   //   const autoPlay = useRef(null);
   const autoPlay = useRef(new Array(item.length).fill(false));
-  console.log(autoPlay);
 
   function onMouseOver(index) {
-    console.log("playerRef", autoPlay);
     if (autoPlay.current) {
       autoPlay.current[index]?.play();
       autoPlay.current[index]?.load();
@@ -48,7 +46,7 @@ function ProductionHouse() {
             muted
             playsInline
             autoPlay
-            className="absolute top-0 rounded-md z-0 opacity-0 hover:opacity-50"
+            className="absolute rounded-md z-0 opacity-0 hover:opacity-50"
             ref={autoPlay}
           >
             <source src={vid.video} type="video/mp4" />

@@ -4,11 +4,19 @@ import MovieCard from "./MovieCard";
 import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
 import { getTrendingVideos } from "../Services/GlobalApi";
 import { getMovieByGenreId } from "../Services/GlobalApi";
+import { useMovieContext } from "./MovieContext";
 
 function MovieList({ genreId }) {
   const [movieList, setMovieList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const elementRef = useRef(null);
+  const { mockApiMovies } = useMovieContext();
+  const [updatedAllMovies, setUpdatedAllMovies] = useState([]);
+
+  useEffect(() => {
+    setUpdatedAllMovies([...mockApiMovies, ...movieList]);
+    console.log(updatedAllMovies);
+  }, [mockApiMovies, movieList]);
 
   useEffect(() => {
     if (genreId) {
@@ -58,6 +66,7 @@ function MovieList({ genreId }) {
     }
   };
 
+  // console.log(`mmmm`, movieList);
   if (isLoading) return <div>Loading...</div>;
 
   return (
@@ -65,14 +74,14 @@ function MovieList({ genreId }) {
       <div className="relative">
         <IoChevronBackOutline
           onClick={slideLeft}
-          className={`text-[50px] text-white hidden md:block p-2 cursor-pointer z-10 absolute top-1/2 transform -translate-y-1/2 bg-transparent`}
+          className={`text-[50px] text-white hidden md:block p-2 cursor-pointer z-30 absolute top-1/2 transform -translate-y-1/2 bg-transparent left-0 `}
         />
         <div
           ref={elementRef}
-          className="flex overflow-x-auto gap-8 scrollbar-hide scroll-smooth pt-5 px-3 pb-5"
+          className="flex overflow-x-auto gap-8 scrollbar-hide scroll-smooth pt-5 px-3 pb-5 h-56"
         >
-          {movieList.map((item, index) => (
-            <MovieCard key={index} movie={item} />
+          {updatedAllMovies.map((item) => (
+            <MovieCard key={item.id} movie={item} />
           ))}
         </div>
         <IoChevronForwardOutline
