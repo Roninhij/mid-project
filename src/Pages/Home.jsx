@@ -54,7 +54,7 @@ function Home() {
         onClick={() => sliderLeft(elementRef.current)}
       />
       <HiChevronRight
-        // className="hidden md:block text-black text-[30px] absolute mx-8 mt-[150px] cursor-pointer right-1 bg-white rounded-2xl"
+        className="hidden md:block text-black text-[30px] absolute mx-8 mt-[150px] cursor-pointer right-1 bg-white rounded-2xl"
         onClick={() => sliderRight(elementRef.current)}
       />
       <div
