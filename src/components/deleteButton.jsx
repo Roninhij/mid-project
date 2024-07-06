@@ -1,19 +1,16 @@
-// DeleteButton.js
-
+/* eslint-disable react/prop-types */
 
 import axios from "axios";
-import { baseUrl } from "../Services/GlobalApi"; // Ensure to import baseUrl from GlobalApi
-
+import { baseUrl } from "../Services/GlobalApi";
 const DeleteButton = ({ movieId, onDelete }) => {
   const handleDelete = async () => {
     try {
       await axios.delete(`${baseUrl}/${movieId}`);
-      onDelete(); // Call the callback function to update context or state after deletion
+      onDelete();
     } catch (error) {
       console.error("Failed to delete movie:", error);
     }
   };
-
   return (
     <button
       onClick={handleDelete}
@@ -23,5 +20,4 @@ const DeleteButton = ({ movieId, onDelete }) => {
     </button>
   );
 };
-
 export default DeleteButton;

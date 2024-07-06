@@ -1,49 +1,48 @@
-import  { useState } from "react";
+/* eslint-disable react/prop-types */
+// EditButton.js
 
-const EditButton = ({ label, value,  buttonLabel }) => {
+import { useState } from "react";
+import AddButton from "./AddButton"; // Ensure to import AddButton correctly
+import { editMovie } from "../Services/GlobalApi"; // Import editMovie function
+
+const EditButton = ({ movie }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [inputValue, setInputValue] = useState(value);
 
-  const handleEditClick = () => {
+  const handleEdit = () => {
     setIsEditing(true);
   };
 
-  const handleSaveClick = () => {
-   
+  const handleClose = () => {
     setIsEditing(false);
   };
 
+  const handleEditMovie = async (updatedMovieData) => {
+    try {
+      await editMovie(movie.id, updatedMovieData);
+      handleClose(); // Close the edit form after editing
+      // Optionally update local state or context with edited data
+    } catch (error) {
+      console.error("Failed to edit movie:", error);
+      // Handle error state or display an error message
+    }
+  };
+
   return (
-    <div className="editable-field">
-      {isEditing ? (
-        <>
-          <input
-            type={label === "Year" || label === "Rating" ? "number" : "text"}
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
-          />
-          <button
-            onClick={handleSaveClick}
-            className="save-edit-btn ml-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-          >
-            Save
-          </button>
-        </>
-      ) : (
-        <>
-          <h4 className="mb-2">
-            {label}: {value}
-          </h4>
-          <button
-            onClick={handleEditClick}
-            className="edit-btn px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
-          >
-            {buttonLabel}
-          </button>
-        </>
+    <>
+      <button
+        onClick={handleEdit}
+        className="bg-yellow-600 hover:bg-yellow-700 text-white font-semibold py-2 sm:py-3 px-4 sm:px-6 rounded-full transition duration-300 text-sm sm:text-base"
+      >
+        Edit
+      </button>
+      {isEditing && (
+        <AddButton
+          onClose={handleClose}
+          movieToEdit={movie}
+          onEdit={handleEditMovie}
+        />
       )}
-    </div>
+    </>
   );
 };
 

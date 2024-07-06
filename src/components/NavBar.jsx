@@ -17,7 +17,7 @@ function NavBar() {
   //   ];
   const navigate = useNavigate();
   return (
-    <div className=" flex flex-wrap gap-5">
+    <div className=" flex flex-col gap-2">
       <div className="w-[120px] md:w-[140px] object-cover">
         <img
           src={logo}

@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useMovieContext } from "../components/MovieContext";
 import { getMovieDetailsById } from "../Services/GlobalApi";
-// import { deleteButton } from "../components/deleteButton";g
+import DeleteButton from "../components/DeleteButton";
 import EditButton from "../components/EditButton";
+
 const IMAGE_BASE_URL = "http://image.tmdb.org/t/p/original";
 
 const Movie = () => {
@@ -33,6 +35,18 @@ const Movie = () => {
       document.head.removeChild(link);
     };
   }, [movieId]);
+
+  useEffect(() => {
+    fetchMovieDetails(movieId);
+  }, [movieId]);
+  const fetchMovieDetails = async (id) => {
+    try {
+      const response = await getMovieDetailsById(id);
+      updateMovieDetails(response.data);
+    } catch (error) {
+      console.error("Error fetching movie details:", error);
+    }
+  };
 
   // const fetchMovieDetails = async () => {
   //   try {
@@ -116,8 +130,11 @@ const Movie = () => {
               </span>
             </div>
           </div>
+          <div className="flex gap-4 mt-4">
+            <EditButton movie={movieDetails} />
+            <DeleteButton movieId={movieDetails.id} onDelete={() => {}} />
+          </div>
           <div className="lg:w-1/3 mt-6 lg:mt-0">
-            {/* Sharp poster image */}
             <img
               src={poster}
               alt={movieDetails.title}
@@ -125,7 +142,6 @@ const Movie = () => {
             />
           </div>
         </div>
-        {/* <EditButton /> */}
       </div>
     </div>
   );

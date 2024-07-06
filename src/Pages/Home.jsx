@@ -23,7 +23,7 @@ function Home() {
   const handleMovieClicked = (movie) => {
     updateMovieDetails(movie); // Update movie details in context
     navigate(`/movie/${movie.id}`); // Navigate to movie details page with correct id
-    console.log(movie);
+    // console.log(movie);
   };
 
   const getTrendingMovies = () => {

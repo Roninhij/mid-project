@@ -1,9 +1,11 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+// AddButton.js
+
+import { useState, useEffect } from "react";
 import { addMovie } from "../Services/GlobalApi";
 import { useMovieContext } from "./MovieContext";
 
-const AddButton = ({ onClose }) => {
+const AddButton = ({ onClose, movieToEdit, onEdit }) => {
   const [newMovie, setNewMovie] = useState({
     title: "",
     backdrop_path: "",
@@ -16,7 +18,15 @@ const AddButton = ({ onClose }) => {
   });
   const { getMovies } = useMovieContext();
 
-  const handleAddMovie = async (e) => {
+  useEffect(() => {
+    if (movieToEdit) {
+      setNewMovie(movieToEdit);
+    }
+  }, [movieToEdit]);
+
+  const handleAction = movieToEdit ? handleEditMovie : handleAddMovie;
+
+  async function handleAddMovie(e) {
     try {
       e.preventDefault();
       await addMovie(newMovie);
@@ -30,17 +40,38 @@ const AddButton = ({ onClose }) => {
         rating: "",
         director: "",
       });
-      onClose(); // Close the modal after adding
+      onClose();
       getMovies();
     } catch (error) {
       console.error("Error adding movie:", error);
       // Handle error state or display an error message
     }
-  };
+  }
+
+  async function handleEditMovie(e) {
+    try {
+      e.preventDefault();
+      await onEdit(newMovie);
+      setNewMovie({
+        title: "",
+        backdrop_path: "",
+        releasedate: "",
+        genres: "",
+        runtime: "",
+        overview: "",
+        rating: "",
+        director: "",
+      });
+      onClose();
+      getMovies();
+    } catch (error) {
+      console.error("Error editing movie:", error);
+      // Handle error state or display an error message
+    }
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
     setNewMovie((prevMovie) => ({
       ...prevMovie,
       [name]: value,
@@ -49,8 +80,10 @@ const AddButton = ({ onClose }) => {
 
   return (
     <div className="max-w-lg mx-auto p-6 bg-slate-700 shadow-md rounded-lg mt-10">
-      <h3 className="text-2xl font-semibold mb-4 text-center">Add New Movie</h3>
-      <form onSubmit={handleAddMovie} className="space-y-4">
+      <h3 className="text-2xl font-semibold mb-4 text-center">
+        {movieToEdit ? "Edit Movie" : "Add New Movie"}
+      </h3>
+      <form onSubmit={handleAction} className="space-y-4">
         <input
           required
           type="text"
@@ -128,7 +161,7 @@ const AddButton = ({ onClose }) => {
             type="submit"
             className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md transition duration-300"
           >
-            Add Movie
+            {movieToEdit ? "Save Changes" : "Add Movie"}
           </button>
           <button
             type="button"

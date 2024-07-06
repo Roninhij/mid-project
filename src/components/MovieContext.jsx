@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { createContext, useContext, useEffect, useState } from "react";
 import { baseUrl, getMovieDetailsById } from "../Services/GlobalApi"; // Import API function
 import axios from "axios";
