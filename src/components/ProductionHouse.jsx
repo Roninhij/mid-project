@@ -39,7 +39,7 @@ function ProductionHouse() {
             onMouseOut(index);
           }}
           key={vid.id}
-          className="border-[2px] border-gray-600 rounded-lg hover:scale-95 transitiaon-all duration-300 ease-in-out cursor-pointer shadow-xl shadow-red-950"
+          className="border-[2px] border-gray-600 rounded-lg hover:scale-95 transitiaon-all duration-300 ease-in-out cursor-pointer shadow-xl shadow-slate-700"
         >
           <video
             loop

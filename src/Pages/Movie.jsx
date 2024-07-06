@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { useMovieContext } from "../components/MovieContext";
 import { baseUrl, getMovieDetailsById } from "../Services/GlobalApi";
 import DeleteButton from "../components/DeleteButton"; // Import the DeleteButton component
-import EditButton from "../components/EditButton";
+// import EditButton from "../components/EditButton";
 import axios from "axios";
 const IMAGE_BASE_URL = "http://image.tmdb.org/t/p/original";
 
@@ -96,7 +96,6 @@ const Movie = () => {
                 Subscribe to Watch
               </button>
               <DeleteButton movieId={movieDetails.id} onDelete={getMovies} />
-              {/* Call handleDelete function here */}
             </div>
             <div className="text-xs sm:text-sm font-medium">
               <span className="text-gray-200">

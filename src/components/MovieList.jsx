@@ -15,7 +15,7 @@ function MovieList({ genreId }) {
 
   useEffect(() => {
     setUpdatedAllMovies([...mockApiMovies, ...movieList]);
-    console.log(updatedAllMovies);
+    // console.log(updatedAllMovies);
   }, [mockApiMovies, movieList]);
 
   useEffect(() => {
