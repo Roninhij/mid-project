@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useMovieContext } from "../components/MovieContext";
 import { getMovieDetailsById } from "../Services/GlobalApi";
-import DeleteButton from "../components/DeleteButton";
 import EditButton from "../components/EditButton";
+import DeleteButton from "../components/DeleteButton";
 
 const IMAGE_BASE_URL = "http://image.tmdb.org/t/p/original";
 
