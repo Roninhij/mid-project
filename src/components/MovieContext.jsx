@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useEffect, useState } from "react";
 import { baseUrl, getMovieDetailsById } from "../Services/GlobalApi"; // Import API function
@@ -5,6 +6,7 @@ import axios from "axios";
 
 const MovieContext = createContext();
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useMovieContext = () => useContext(MovieContext);
 
 export const MovieProvider = ({ children }) => {
