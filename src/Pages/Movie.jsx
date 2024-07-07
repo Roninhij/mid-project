@@ -116,9 +116,8 @@ const Movie = () => {
               <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 sm:py-3 px-6 sm:px-8 rounded-full transition duration-300 text-sm sm:text-base">
                 Subscribe to Watch
               </button>
-              <button className="bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 sm:py-3 px-3 sm:px-4 rounded-full transition duration-300 text-sm sm:text-base">
-                +
-              </button>
+              <EditButton movie={movieDetails} />
+              <DeleteButton movieId={movieDetails.id} onDelete={() => {}} />
             </div>
             <div className="text-xs sm:text-sm font-medium">
               {/* <span className="text-gray-400">Starring: </span> */}
@@ -129,10 +128,6 @@ const Movie = () => {
                   .join(", ")}
               </span>
             </div>
-          </div>
-          <div className="flex gap-4 mt-4">
-            <EditButton movie={movieDetails} />
-            <DeleteButton movieId={movieDetails.id} onDelete={() => {}} />
           </div>
           <div className="lg:w-1/3 mt-6 lg:mt-0">
             <img
